@@ -1,4 +1,6 @@
 @echo off
+REM تفعيل ترميز UTF-8 لعرض النص العربي بشكل صحيح في نافذة الأوامر
+chcp 65001 >nul
 REM سكربت تشغيل المشروع على ويندوز: يشغّل الخادم والواجهة معًا
 REM ضع مفتاح Claude هنا لتفعيل الصوت/التصوير (اختياري):
 REM set ANTHROPIC_API_KEY=sk-ant-...
@@ -30,12 +32,13 @@ if not exist "client\node_modules" (
 )
 
 echo بدء الخادم على http://localhost:5080 ...
-start "Census Server" cmd /k "cd Server && dotnet run"
+start "Census Server" cmd /k "chcp 65001 >nul && cd Server && dotnet run"
 
 echo بدء الواجهة على http://localhost:5173 ...
-start "Census Client" cmd /k "cd client && npm run dev"
+start "Census Client" cmd /k "chcp 65001 >nul && cd client && npm run dev"
 
 echo.
 echo تم التشغيل. افتح المتصفح على: http://localhost:5173
 echo (نافذتان جديدتان فُتحتا للخادم والواجهة)
+echo ملاحظة: لعرض العربية بأفضل شكل استخدم خط "Cascadia Mono" أو Windows Terminal.
 pause
